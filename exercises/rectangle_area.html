@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html data-require="math math-format graphie">
+  <head>
+    <title>Rectangle area</title>
+    <script src="../khan-exercise.js"></script>
+    <script>
+    function countSquares(B,H){
+	var graph = KhanUtil.currentGraph;
+        block = 0;
+	for (i = 0;i < H; i++ ) {
+	    for (j = 0;j < B;j++ ) {
+	        block ++;
+		graph.style({
+		    stroke: "red",
+		    strokeWidth: 2
+		}, function() {
+		    graph.path([ [ j, i ], [ j + 1, i ], [ j + 1, i + 1 ], [ j, i + 1 ], [ j, i ] ]);
+		});
+		
+		graph.label( [ j+.5, i+.5 ], block, "center", {
+		    color: "orange" 
+		});
+	    }
+	}
+    }
+  </script>
+  </head>
+  <body>
+
+    <div class="exercise">
+      <div class="vars">
+	<var id="B">randRange(3,12)</var>
+	<var id="H">randRange(3,12)</var>
+      </div>
+      
+      <div class="problems">
+        <div id="find-area">
+          <p class="question">What is the area of the rectangle below?</p>
+
+	  <div class="graphie" id="grid">
+            graphInit({
+		range: [ [ -1, B + 1 ] , [ -1 , H + 1 ] ],
+	        scale: 35,
+		axisOpacity: 0.01,
+		tickLen: 0
+	    });
+            
+            style({
+		stroke: "black",
+		strokeWidth: 3
+	    }, function() {
+		path([ [ 0, 0 ], [ B, 0 ], [ B, H ], [ 0, H ], [ 0, 0 ] ]);
+	    });
+	  </div>
+          <p class="solution" data-type="rational"><var>B*H</var></p>
+        </div>
+      </div>
+      
+      <div class="hints">
+	  <p>To find the area of a rectangle simply count the number of <span class="hint_orange">square units</span> that fit inside it.</p>
+
+	  <div class="graphie" data-update="grid">
+	    path( [ [ 0, 0 ], [ 0, 1 ], [ 1, 1 ], 
+	    [ 1, 0 ], [ 0, 0 ] ], { 
+	      //fill:"red",
+	      stroke: "orange",
+	      strokeWidth: 2,
+	    });
+	  </div>
+
+	  
+	  <div class="graphie" data-update="grid">
+	    countSquares(B,H);
+	  </div>
+
+	  <div class="graphie" data-update="grid">
+	    path( [ [ B-1, H-1 ], [ B-1, H ], [ B, H ], 
+	    [ B, H-1 ], [ B-1, H-1 ] ], { 
+	      fill:"orange",
+	      stroke: "orange",
+	      strokeWidth: 3,
+	    });
+
+	    label( [ B-.5, H-.5 ], B*H, "center", {
+	      color: "black"
+	    });
+	  </div>
+
+	  <p>So, the area is <span class="hint_orange"><var>B*H</var></span>.</p>
+
+	  <p>A better way to calculate the area would be to multiply the <span class="hint_red">base</span> by the <span class="hint_blue">height</span>.</p>
+	  
+	  
+	  <div class="graphie" data-update="grid">
+
+	    //draw in length lines and labels for base/height...
+	  </div>
+
+	  
+	</div>
+	
+      </div>
+    </div>
+  </body>
+</html>

@@ -4,10 +4,10 @@
     <title>Rectangle area</title>
     <script src="../khan-exercise.js"></script>
     <script>
-    function countSquares(B,H){
+    var cs = function( B,H ) {
 	var graph = KhanUtil.currentGraph;
-	var lines = new Array();
-	var numbers = new Array();
+	var lines = [];
+	var numbers = [];
         block = 0;
 	for (i = 0;i < H; i++ ) {
 	    for (j = 0;j < B;j++ ) {
@@ -25,6 +25,16 @@
 		});
 		numbers.push(num);
 	    }
+	}
+	return [lines, numbers];
+    }
+
+    function clear_cs( cs ) {
+	for ( i in cs[0] ) {
+	    i.remove();
+	}
+	for ( i in cs[1] ) {
+	    i.remove();
 	}
     }
   </script>
@@ -73,7 +83,7 @@
 	  </div>
 
 	  <div class="graphie" data-update="grid">
-	    countSquares(B,H);
+	    cs = cs(B,H);
 	  </div>
 
 	  <div class="graphie" data-update="grid">
@@ -100,6 +110,7 @@
 	  ]</p>
 
 	  <div class="graphie" data-update="grid">
+            clear_cs(cs);
 	    path( [ [ 0, -1 ], [ B, -1 ] ], {
 	      stroke: "red",
 	      strokeWidth: 3,
